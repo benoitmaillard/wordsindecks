@@ -2,8 +2,8 @@
 wordsindecks
 ============
 
-
-.. image:: https://img.shields.io/pypi/v/wordsindecks.svg
+..
+    .. image:: https://img.shields.io/pypi/v/wordsindecks.svg
         :target: https://pypi.python.org/pypi/wordsindecks
 
 .. image:: https://img.shields.io/travis/benoitmaillard/wordsindecks.svg
