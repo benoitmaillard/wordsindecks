@@ -18,7 +18,7 @@ class TokenKind(Enum):
 
 TOKENIZE_RULES = [
     (r'(?:\n|^)(=+)', TokenKind.HEADING_OPEN),
-    (r'(=+)(?:\n)', TokenKind.HEADING_CLOSE),
+    (r'(=+)(?=\n)', TokenKind.HEADING_CLOSE),
     (r'(\{\{)', TokenKind.TEMPLATE_OPEN),
     (r'(\}\})', TokenKind.TEMPLATE_CLOSE),
     (r'(\|)', TokenKind.TEMPLATE_SPLIT),
