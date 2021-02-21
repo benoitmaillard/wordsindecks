@@ -21,7 +21,7 @@ TOKENIZE_RULES = [
     (r'(=+)(?:\n)', TokenKind.HEADING_CLOSE),
     (r'(\{\{)', TokenKind.TEMPLATE_OPEN),
     (r'(\}\})', TokenKind.TEMPLATE_CLOSE),
-    (r'(\|\|)', TokenKind.TEMPLATE_SPLIT),
+    (r'(\|)', TokenKind.TEMPLATE_SPLIT),
     (r'(\[\[)', TokenKind.LINK_OPEN),
     (r'(\]\])', TokenKind.LINK_CLOSE),
     (r'(?:\n)([\*\#\:\;]+)', TokenKind.LIST_ITEM),
@@ -73,4 +73,4 @@ class Tokenizer:
         if len(orphan_chars) > 0:
             tokens.append(Token(TokenKind.TEXT, orphan_chars, (pos - len(orphan_chars), pos-1)))
 
-        return tokens
+        return filter(lambda t: t.kind != TokenKind.IGNORE, tokens)
