@@ -1,0 +1,16 @@
+==English==
+{{wikipedia}}
+
+===Etymology===
+{{suffix|en|parse|er}}
+
+===Pronunciation===
+* {{a|UK}} {{IPA|en|/ˈpɑː(ɹ).zə/|/ˈpɑː(ɹ).sə/}}
+* {{rhymes|en|ɑː(r)zə(r)|ɑː(ɹ)sə(ɹ)}}
+* {{audio|en|LL-Q1860 (eng)-I learned some phrases-parser.wav|Audio (UK)}}
+
+===Noun===
+{{en-noun}}
+
+# {{lb|en|computing}} A computer program that parses.
+# One who [[parse]]s.
