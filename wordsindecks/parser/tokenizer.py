@@ -2,18 +2,18 @@ from enum import Enum, auto
 import re
 
 class TokenKind(Enum):
-    HEADING_OPEN = 0
-    HEADING_CLOSE = 1
-    TEMPLATE_OPEN = 2
-    TEMPLATE_CLOSE = 3
-    LINK_OPEN = 4
-    LINK_CLOSE = 5
-    HTML_OPEN = 6
-    HTML_CLOSE = 7
-    LIST_ITEM = 8
-    PBREAK = 9
-    TEXT = 10
-    IGNORE = 11
+    HEADING_OPEN = auto()
+    HEADING_CLOSE = auto()
+    TEMPLATE_OPEN = auto()
+    TEMPLATE_CLOSE = auto()
+    LINK_OPEN = auto()
+    LINK_CLOSE = auto()
+    HTML_OPEN = auto()
+    HTML_CLOSE = auto()
+    LIST_ITEM = auto()
+    PBREAK = auto()
+    TEXT = auto()
+    IGNORE = auto()
 
 # TODO enclose all regex in groups in order to have the option to exclude some characters ?
 TOKENIZE_RULES = [
