@@ -2,3 +2,12 @@
 <b>This is a bold paragraph</b>
 
 This is another paragraph
+==Another heading==
+===Subsection heading===
+
+===Another subsection heading===
+test
+
+test
+
+* test

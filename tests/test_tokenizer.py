@@ -17,6 +17,21 @@ class TestTokenizer:
             (TokenKind.HTML_CLOSE, '</b>'),
             (TokenKind.PBREAK, '\n\n'),
             (TokenKind.TEXT, 'This is another paragraph'),
+            (TokenKind.HEADING_OPEN, '=='),
+            (TokenKind.TEXT, 'Another heading'),
+            (TokenKind.HEADING_CLOSE, '=='),
+            (TokenKind.HEADING_OPEN, '==='),
+            (TokenKind.TEXT, 'Subsection heading'),
+            (TokenKind.HEADING_CLOSE, '==='),
+            (TokenKind.HEADING_OPEN, '==='),
+            (TokenKind.TEXT, 'Another subsection heading'),
+            (TokenKind.HEADING_CLOSE, '==='),
+            (TokenKind.TEXT, 'test'),
+            (TokenKind.PBREAK, '\n\n'),
+            (TokenKind.TEXT, 'test'),
+            (TokenKind.LIST_ITEM, '*'),
+            (TokenKind.TEXT, ' test'),
+
         ]
 
         assert self.tokenize_file('foo.txt') == expected_tokens
