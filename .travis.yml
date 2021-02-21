@@ -1,6 +1,6 @@
 language: python
 python:
-- 3.8
+- 3.9
 install: pip install -U tox-travis
 script: tox
 deploy:
@@ -12,4 +12,4 @@ deploy:
   on:
     tags: true
     repo: benoitmaillard/wordsindecks
-    python: 3.8
+    python: 3.9
