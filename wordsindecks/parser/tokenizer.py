@@ -6,6 +6,7 @@ class TokenKind(Enum):
     HEADING_CLOSE = auto()
     TEMPLATE_OPEN = auto()
     TEMPLATE_CLOSE = auto()
+    TEMPLATE_SPLIT = auto()
     LINK_OPEN = auto()
     LINK_CLOSE = auto()
     HTML_OPEN = auto()
@@ -21,6 +22,7 @@ TOKENIZE_RULES = [
     (r'==*\n', TokenKind.HEADING_CLOSE),
     (r'\{\{', TokenKind.TEMPLATE_OPEN),
     (r'\}\}', TokenKind.TEMPLATE_CLOSE),
+    (r'\|\|', TokenKind.TEMPLATE_SPLIT),
     (r'\[\[', TokenKind.LINK_OPEN),
     (r'\]\]', TokenKind.LINK_CLOSE),
     (r'\n[\*\#\:\;]*', TokenKind.LIST_ITEM),
