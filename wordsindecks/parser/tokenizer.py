@@ -19,14 +19,14 @@ class TokenKind(Enum):
 TOKENIZE_RULES = [
     (r'(?:\n|^)==*', TokenKind.HEADING_OPEN),
     (r'==*\n', TokenKind.HEADING_CLOSE),
-    (r'\{', TokenKind.TEMPLATE_OPEN),
-    (r'\}', TokenKind.TEMPLATE_CLOSE),
-    (r'\[', TokenKind.LINK_OPEN),
-    (r'\]', TokenKind.LINK_CLOSE),
-    (r'\n[\*\#]', TokenKind.LIST_ITEM),
+    (r'\{\{', TokenKind.TEMPLATE_OPEN),
+    (r'\}\}', TokenKind.TEMPLATE_CLOSE),
+    (r'\[\[', TokenKind.LINK_OPEN),
+    (r'\]\]', TokenKind.LINK_CLOSE),
+    (r'\n[\*\#\:\;]*', TokenKind.LIST_ITEM),
     (r'<[A-Za-z][A-Za-z]*>', TokenKind.HTML_OPEN), # TODO add support for attributes
     (r'</[A-Za-z][A-Za-z]*>', TokenKind.HTML_CLOSE),
-    (r'\n\n(?![=\*])', TokenKind.PBREAK), # TODO add missing negative lookahead characters
+    (r'\n\n(?![=\*\#\:\;])', TokenKind.PBREAK),
     (r'\n', TokenKind.IGNORE),
 ]
 
