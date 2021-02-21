@@ -2,6 +2,25 @@ from wordsindecks.parser.tokenizer import Tokenizer, TokenKind
 import pytest
 
 class TestTokenizer:
+    def tokenize_file(self, filename):
+        with open('tests/resources/' + filename, 'r') as f:
+            produced_tokens = Tokenizer(f.read()).process()
+            return [(p.kind, p.content) for p in produced_tokens]
+
+    def test_foo(self):
+        expected_tokens = [
+            (TokenKind.HEADING_OPEN, '=='),
+            (TokenKind.TEXT, 'Heading'),
+            (TokenKind.HEADING_CLOSE, '=='),
+            (TokenKind.HTML_OPEN, '<b>'),
+            (TokenKind.TEXT, 'This is a bold paragraph'),
+            (TokenKind.HTML_CLOSE, '</b>'),
+            (TokenKind.PBREAK, '\n\n'),
+            (TokenKind.TEXT, 'This is another paragraph'),
+        ]
+
+        assert self.tokenize_file('foo.txt') == expected_tokens
+
     def test_article(self):
         expected_tokens = [
             (TokenKind.HEADING_OPEN, '=='),
@@ -91,7 +110,5 @@ class TestTokenizer:
             (TokenKind.TEXT, 's.')
         ]
         
-        with open('tests/resources/parser.txt', 'r') as f:
-            produced_tokens = Tokenizer(f.read()).process()
-            assert [(p.kind, p.content) for p in produced_tokens] == expected_tokens
+        assert self.tokenize_file('parser.txt') == expected_tokens
             
