@@ -14,6 +14,7 @@ class TokenKind(Enum):
     HTML_CLOSE = auto()
     LIST_ITEM = auto()
     PBREAK = auto()
+    LBREAK = auto()
     TEXT = auto()
     IGNORE = auto()
 
@@ -29,6 +30,7 @@ TOKENIZE_RULES = [
     (r'(<[A-Za-z]+>)', TokenKind.HTML_OPEN), # TODO add support for attributes
     (r'(</[A-Za-z]+>)', TokenKind.HTML_CLOSE),
     (r'(\n\n(?![=\*\#\:\;]))', TokenKind.PBREAK),
+    (r'(\n)', TokenKind.LBREAK),
 ]
 
 IGNORE_REGEX = re.compile(r'\n')
@@ -66,10 +68,7 @@ class Tokenizer:
                     break
             
             if new_pos == pos:
-                # single new line characters are not taken into account and are
-                # removed before producing a plaintext token
-                if not IGNORE_REGEX.match(self.text, pos):
-                    orphan_chars += self.text[pos]
+                orphan_chars += self.text[pos]
                 pos += 1
             else:
                 pos = new_pos
