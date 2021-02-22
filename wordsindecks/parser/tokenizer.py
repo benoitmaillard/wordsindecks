@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from typing import Iterator
 import re
 
 class TokenKind(Enum):
@@ -28,8 +29,9 @@ TOKENIZE_RULES = [
     (r'(<[A-Za-z]+>)', TokenKind.HTML_OPEN), # TODO add support for attributes
     (r'(</[A-Za-z]+>)', TokenKind.HTML_CLOSE),
     (r'(\n\n(?![=\*\#\:\;]))', TokenKind.PBREAK),
-    (r'(\n)', TokenKind.IGNORE),
 ]
+
+IGNORE_REGEX = re.compile(r'\n')
 
 class Token:
     def __init__(self, kind: TokenKind, content: str, position: tuple[int, int]):
@@ -41,13 +43,12 @@ class Tokenizer:
     def __init__(self, text):
         self.text = text
 
-    def process(self) -> list[Token]:
+    def process(self) -> Iterator[Token]:
         compiled_rules = [(re.compile(regex), kind) for (regex, kind) in TOKENIZE_RULES]
 
         length = len(self.text)
         pos = 0
         orphan_chars = ""
-        tokens: list[Token] = []
 
         while (pos < length):
             new_pos = pos
@@ -58,19 +59,20 @@ class Tokenizer:
                     new_pos = match.span()[1]
                     
                     if len(orphan_chars) > 0:
-                        tokens.append(Token(TokenKind.TEXT, orphan_chars, (pos - len(orphan_chars), pos)))
+                        yield Token(TokenKind.TEXT, orphan_chars, (pos - len(orphan_chars), pos))
                         orphan_chars = ""
 
-                    tokens.append(Token(kind, "".join(match.groups()), match.span()))
+                    yield Token(kind, "".join(match.groups()), match.span())
                     break
-
+            
             if new_pos == pos:
-                orphan_chars += self.text[pos]
+                # single new line characters are not taken into account and are
+                # removed before producing a plaintext token
+                if not IGNORE_REGEX.match(self.text, pos):
+                    orphan_chars += self.text[pos]
                 pos += 1
             else:
                 pos = new_pos
 
         if len(orphan_chars) > 0:
-            tokens.append(Token(TokenKind.TEXT, orphan_chars, (pos - len(orphan_chars), pos-1)))
-
-        return filter(lambda t: t.kind != TokenKind.IGNORE, tokens)
+            yield Token(TokenKind.TEXT, orphan_chars, (pos - len(orphan_chars), pos-1))
