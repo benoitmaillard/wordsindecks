@@ -1,7 +1,7 @@
 """Tests for PEG parsing"""
 
 import pytest
-from wordsindecks.parser.parser import *
+from wordsindecks.parser.peg import *
 
 def test_accept_terminal():
     expr = NonTerminal('expr')
