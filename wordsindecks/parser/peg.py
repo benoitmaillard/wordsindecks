@@ -1,6 +1,7 @@
 from __future__ import annotations
 from collections.abc import Callable
-from typing import TypeVar, Generic, Optional, Union
+from typing import TypeVar, Generic, Optional, Union, Literal
+import re
 
 T = TypeVar('T')
 T1 = TypeVar('T1')
@@ -32,7 +33,6 @@ class NonTerminal(Expr[T]):
 
     def __repr__(self):
         return f"NonTerminal({self.name})"
-
 
 class Terminal(Expr[str]):
     def __init__(self, text: str):
@@ -133,9 +133,9 @@ class Parser(Generic[T]):
         self.init = init
         self.rules = rules
 
-    def parse(self, text: str) -> Optional[T]:
+    def parse(self, text: str) -> Union[T, Literal[False]]:
         res = self.init.check(text, 0, self.rules)
         if res and res[0] == len(text):
             return res[1]
         else:
-            return None
+            return False
