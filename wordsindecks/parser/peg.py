@@ -45,6 +45,17 @@ class Terminal(Expr[str]):
         else:
             return None
 
+class TerminalR(Expr[str]):
+    def __init__(self, regex: str):
+        self.regex = re.compile(regex)
+
+    def check(self, text: str, pos: int,
+              rules: Rules) -> Optional[tuple[int, str]]:
+        m = self.regex.match(text, pos)
+        if m:
+            return (m.span()[1], m.group())
+        else:
+            return None
 
 class Follow(Expr[tuple[T1, T2]]):
     def __init__(self, left: Expr[T1], right: Expr[T2]):
